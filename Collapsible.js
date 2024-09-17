@@ -51,6 +51,12 @@ export default class Collapsible extends Component {
     }
   }
 
+  componentDidMount() {
+    if (!this.props.collapsed) {
+      this._toggleCollapsed(this.props.collapsed);
+    }
+  }
+
   contentHandle = null;
 
   _handleRef = (ref) => {
@@ -186,13 +192,15 @@ export default class Collapsible extends Component {
       animating,
     } = this.state;
     const hasKnownHeight = !measuring && (measured || collapsed);
-    const style = hasKnownHeight ? {
-      overflow: 'hidden',
-      height: height,
-    } : {
-      overflow: 'hidden',
-      height: 0,
-    };
+    const style = hasKnownHeight
+      ? {
+          overflow: 'hidden',
+          height: height,
+        }
+      : {
+          overflow: 'hidden',
+          height: 0,
+        };
     const contentStyle = {};
     if (measuring) {
       contentStyle.position = 'absolute';
